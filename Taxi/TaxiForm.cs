@@ -74,7 +74,13 @@ namespace Taxi
             if (startFinish)
             {
                 CreatePictureBoxForRouteMarks(myField.Fleet[tempStartPoint.Item2].Name, startFinish, newPnt.X, newPnt.Y);
-                myField.Fleet[tempStartPoint.Item2].AddRoute(myField.ArrayOfPathPoints(new Point((int)myField.Fleet[tempStartPoint.Item2].xPos, (int)myField.Fleet[tempStartPoint.Item2].yPos), tempStartPoint.Item1));
+                if (myField.Fleet[tempStartPoint.Item2].Route.Count == 0)
+                    myField.Fleet[tempStartPoint.Item2].AddRoute(myField.ArrayOfPathPoints(new Point((int)myField.Fleet[tempStartPoint.Item2].xPos, (int)myField.Fleet[tempStartPoint.Item2].yPos), tempStartPoint.Item1));
+                else
+                    myField.Fleet[tempStartPoint.Item2].AddRoute(myField.ArrayOfPathPoints(new Point(
+                        (int)myField.Fleet[tempStartPoint.Item2].Route[myField.Fleet[tempStartPoint.Item2].Route.Count - 1].X,
+                        (int)myField.Fleet[tempStartPoint.Item2].Route[myField.Fleet[tempStartPoint.Item2].Route.Count - 1].Y), 
+                        tempStartPoint.Item1));
                 myField.Fleet[tempStartPoint.Item2].AddRoute(myField.ArrayOfPathPoints(tempStartPoint.Item1, newPnt));
                 tempStartPoint = null;
                 return;
